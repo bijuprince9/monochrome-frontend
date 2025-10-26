@@ -102,21 +102,21 @@ const NewArrivals = () => {
   ];
 
   const handleMouseDown = (e) => {
-    setIsDragging(true)
-    setStartX(e.pageX - scrollRef.current.offsetLeft)
-    setScrollLeft(scrollRef.current.scrollLeft)
-  }
+    setIsDragging(true);
+    setStartX(e.pageX - scrollRef.current.offsetLeft);
+    setScrollLeft(scrollRef.current.scrollLeft);
+  };
 
   const handleMouseMove = (e) => {
-    if(!isDragging) return;
+    if (!isDragging) return;
     const x = e.pageX - scrollRef.current.offsetLeft;
     const walk = x - startX;
     scrollRef.current.scrollLeft = scrollLeft - walk;
-  }
+  };
 
   const handleMouseUpOrLeave = () => {
     setIsDragging(false);
-  }
+  };
 
   const scroll = (direction) => {
     const scrollAmount = direction === "left" ? -300 : 300;
@@ -134,12 +134,6 @@ const NewArrivals = () => {
       setCanScrollLeft(leftScroll > 0);
       setCanScrollRight(rightScrollable);
     }
-
-    console.log({
-      scrollLeft: container.scollLeft,
-      clientWidth: container.clientWidth,
-      containerScrollWidth: container.scrollWidth,
-    });
   };
 
   useEffect(() => {
@@ -147,7 +141,7 @@ const NewArrivals = () => {
     if (container) {
       container.addEventListener("scroll", updateScrollButtons);
       updateScrollButtons();
-      return () => container.removeEventListener('scroll', updateScrollButtons)
+      return () => container.removeEventListener("scroll", updateScrollButtons);
     }
   }, []);
 
@@ -189,7 +183,9 @@ const NewArrivals = () => {
       {/* Scrollable Content */}
       <div
         ref={scrollRef}
-        className={`container mx-auto overflow-x-scroll flex space-x-6 relative ${isDragging ? 'cursor-grabbing': 'cursor-grab'}`}
+        className={`container mx-auto overflow-x-scroll flex space-x-6 relative ${
+          isDragging ? "cursor-grabbing" : "cursor-grab"
+        }`}
         onMouseDown={handleMouseDown}
         onMouseMove={handleMouseMove}
         onMouseUp={handleMouseUpOrLeave}
@@ -204,7 +200,7 @@ const NewArrivals = () => {
               src={product.images[0]?.url}
               alt={product.images[0]?.altText || product.name}
               className="w-full h-[500px] object-cover rounded-lg"
-              draggable='false'
+              draggable="false"
             />
             <div className="absolute bottom-0 left-0 right-0 backdrop-blur-md text-white p-4 rounded-b-lg">
               <Link to={`/product/${product._id}`} className="block">
